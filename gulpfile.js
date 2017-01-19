@@ -46,3 +46,10 @@ gulp.task('lint', function() {
             .pipe(gulp.dest('.'));
             //.pipe(eslint.failAfterError());
 });
+
+gulp.task('dist', function(){
+    return gulp.src('./ginger_app/**/*')
+               .pipe(debug({title: 'dist (Scope):'}))
+               .pipe(gulp.dest('./dist'))
+               .pipe(gulp.dest('./public'));
+})
