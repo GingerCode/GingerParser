@@ -2,10 +2,49 @@
   "name": "Ginger-Code",
   "description": "Translate from pseudocode to code",
   "version": "0.1.0",
-  
-  "dependencies": {
-    "pillars": "*"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSWeekends/Ginger-Code.git"
   },
-  "main": "./app.js",
-  "license": "MIT"
+  "bugs": {
+    "url": "https://github.com/OSWeekends/Ginger-Code/issues"
+  },
+  "homepage": "http://gingercode.org",
+  "main": "./server.js",
+  "author": "Open Source Weekends",
+  "contributors": [
+    {
+      "name": "Javier Gallego Martín",
+      "url": "https://github.com/bifuer"
+    },
+    {
+      "name": "Chelo Quilón",
+      "url": "https://github.com/lilxelo"
+    },
+    {
+      "name": "Jose Manuel Gallego Chamorro",
+      "url": "https://github.com/Josheriff"
+    },
+    {
+      "name": "Ulises Gascón",
+      "url": "https://github.com/ulisesGascon"
+    }],
+  "license": "GPL-3.0",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "dependencies": {
+    "pillars": "*",
+    "chai": "3.5.0",
+    "chai-fs": "1.0.0",
+    "gulp": "3.9.1",
+    "gulp-debug": "3.0.0",
+    "gulp-eslint": "3.0.1",
+    "gulp-istanbul": "1.1.1",
+    "gulp-jsdoc3": "1.0.1",
+    "gulp-mocha": "3.0.1",
+    "gulp-util": "3.0.8",
+    "handlebars": "4.0.6",
+    "mocha": "3.1.2"
+  }
 }
