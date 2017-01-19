@@ -11,7 +11,7 @@ var pillarsDocsStatic = new Route({
     id:'pillarsDocsStatic',
     path:'/*:path',
     directory:{
-        path:'./static',
+        path:'./public',
         listing:true
     }
 });
