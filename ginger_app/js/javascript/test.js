@@ -2,26 +2,26 @@
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function() {
-  var mode = CodeMirror.getMode({indentUnit: 2}, "javascript");
-  function MT(name) { test.mode(name, mode, Array.prototype.slice.call(arguments, 1)); }
+    var mode = CodeMirror.getMode({indentUnit: 2}, "javascript");
+    function MT(name) { test.mode(name, mode, Array.prototype.slice.call(arguments, 1)); }
 
-  MT("locals",
+    MT("locals",
      "[keyword function] [def foo]([def a], [def b]) { [keyword var] [def c] [operator =] [number 10]; [keyword return] [variable-2 a] [operator +] [variable-2 c] [operator +] [variable d]; }");
 
-  MT("comma-and-binop",
+    MT("comma-and-binop",
      "[keyword function](){ [keyword var] [def x] [operator =] [number 1] [operator +] [number 2], [def y]; }");
 
-  MT("destructuring",
+    MT("destructuring",
      "([keyword function]([def a], [[[def b], [def c] ]]) {",
      "  [keyword let] {[def d], [property foo]: [def c][operator =][number 10], [def x]} [operator =] [variable foo]([variable-2 a]);",
      "  [[[variable-2 c], [variable y] ]] [operator =] [variable-2 c];",
      "})();");
 
-  MT("destructure_trailing_comma",
+    MT("destructure_trailing_comma",
     "[keyword let] {[def a], [def b],} [operator =] [variable foo];",
     "[keyword let] [def c];"); // Parser still in good state?
 
-  MT("class_body",
+    MT("class_body",
      "[keyword class] [def Foo] {",
      "  [property constructor]() {}",
      "  [property sayName]() {",
@@ -29,7 +29,7 @@
      "  }",
      "}");
 
-  MT("class",
+    MT("class",
      "[keyword class] [def Point] [keyword extends] [variable SuperThing] {",
      "  [keyword get] [property prop]() { [keyword return] [number 24]; }",
      "  [property constructor]([def x], [def y]) {",
@@ -38,69 +38,69 @@
      "  }",
      "}");
 
-  MT("anonymous_class_expression",
+    MT("anonymous_class_expression",
      "[keyword const] [def Adder] [operator =] [keyword class] [keyword extends] [variable Arithmetic] {",
      "  [property add]([def a], [def b]) {}",
      "};");
 
-  MT("named_class_expression",
+    MT("named_class_expression",
      "[keyword const] [def Subber] [operator =] [keyword class] [def Subtract] {",
      "  [property sub]([def a], [def b]) {}",
      "};");
 
-  MT("import",
+    MT("import",
      "[keyword function] [def foo]() {",
      "  [keyword import] [def $] [keyword from] [string 'jquery'];",
      "  [keyword import] { [def encrypt], [def decrypt] } [keyword from] [string 'crypto'];",
      "}");
 
-  MT("import_trailing_comma",
+    MT("import_trailing_comma",
      "[keyword import] {[def foo], [def bar],} [keyword from] [string 'baz']")
 
-  MT("const",
+    MT("const",
      "[keyword function] [def f]() {",
      "  [keyword const] [[ [def a], [def b] ]] [operator =] [[ [number 1], [number 2] ]];",
      "}");
 
-  MT("for/of",
+    MT("for/of",
      "[keyword for]([keyword let] [def of] [keyword of] [variable something]) {}");
 
-  MT("generator",
+    MT("generator",
      "[keyword function*] [def repeat]([def n]) {",
      "  [keyword for]([keyword var] [def i] [operator =] [number 0]; [variable-2 i] [operator <] [variable-2 n]; [operator ++][variable-2 i])",
      "    [keyword yield] [variable-2 i];",
      "}");
 
-  MT("quotedStringAddition",
+    MT("quotedStringAddition",
      "[keyword let] [def f] [operator =] [variable a] [operator +] [string 'fatarrow'] [operator +] [variable c];");
 
-  MT("quotedFatArrow",
+    MT("quotedFatArrow",
      "[keyword let] [def f] [operator =] [variable a] [operator +] [string '=>'] [operator +] [variable c];");
 
-  MT("fatArrow",
+    MT("fatArrow",
      "[variable array].[property filter]([def a] [operator =>] [variable-2 a] [operator +] [number 1]);",
      "[variable a];", // No longer in scope
      "[keyword let] [def f] [operator =] ([[ [def a], [def b] ]], [def c]) [operator =>] [variable-2 a] [operator +] [variable-2 c];",
      "[variable c];");
 
-  MT("spread",
+    MT("spread",
      "[keyword function] [def f]([def a], [meta ...][def b]) {",
      "  [variable something]([variable-2 a], [meta ...][variable-2 b]);",
      "}");
 
-  MT("quasi",
+    MT("quasi",
      "[variable re][string-2 `fofdlakj${][variable x] [operator +] ([variable re][string-2 `foo`]) [operator +] [number 1][string-2 }fdsa`] [operator +] [number 2]");
 
-  MT("quasi_no_function",
+    MT("quasi_no_function",
      "[variable x] [operator =] [string-2 `fofdlakj${][variable x] [operator +] [string-2 `foo`] [operator +] [number 1][string-2 }fdsa`] [operator +] [number 2]");
 
-  MT("indent_statement",
+    MT("indent_statement",
      "[keyword var] [def x] [operator =] [number 10]",
      "[variable x] [operator +=] [variable y] [operator +]",
      "  [atom Infinity]",
      "[keyword debugger];");
 
-  MT("indent_if",
+    MT("indent_if",
      "[keyword if] ([number 1])",
      "  [keyword break];",
      "[keyword else] [keyword if] ([number 2])",
@@ -115,20 +115,20 @@
      "  [number 10];",
      "}");
 
-  MT("indent_for",
+    MT("indent_for",
      "[keyword for] ([keyword var] [def i] [operator =] [number 0];",
      "     [variable i] [operator <] [number 100];",
      "     [variable i][operator ++])",
      "  [variable doSomething]([variable i]);",
      "[keyword debugger];");
 
-  MT("indent_c_style",
+    MT("indent_c_style",
      "[keyword function] [def foo]()",
      "{",
      "  [keyword debugger];",
      "}");
 
-  MT("indent_else",
+    MT("indent_else",
      "[keyword for] (;;)",
      "  [keyword if] ([variable foo])",
      "    [keyword if] ([variable bar])",
@@ -138,51 +138,51 @@
      "  [keyword else]",
      "    [number 3];");
 
-  MT("indent_funarg",
+    MT("indent_funarg",
      "[variable foo]([number 10000],",
      "    [keyword function]([def a]) {",
      "  [keyword debugger];",
      "};");
 
-  MT("indent_below_if",
+    MT("indent_below_if",
      "[keyword for] (;;)",
      "  [keyword if] ([variable foo])",
      "    [number 1];",
      "[number 2];");
 
-  MT("indent_semicolonless_if",
+    MT("indent_semicolonless_if",
      "[keyword function] [def foo]() {",
      "  [keyword if] ([variable x])",
      "    [variable foo]()",
      "}")
 
-  MT("indent_semicolonless_if_with_statement",
+    MT("indent_semicolonless_if_with_statement",
      "[keyword function] [def foo]() {",
      "  [keyword if] ([variable x])",
      "    [variable foo]()",
      "  [variable bar]()",
      "}")
 
-  MT("multilinestring",
+    MT("multilinestring",
      "[keyword var] [def x] [operator =] [string 'foo\\]",
      "[string bar'];");
 
-  MT("scary_regexp",
+    MT("scary_regexp",
      "[string-2 /foo[[/]]bar/];");
 
-  MT("indent_strange_array",
+    MT("indent_strange_array",
      "[keyword var] [def x] [operator =] [[",
      "  [number 1],,",
      "  [number 2],",
      "]];",
      "[number 10];");
 
-  MT("param_default",
+    MT("param_default",
      "[keyword function] [def foo]([def x] [operator =] [string-2 `foo${][number 10][string-2 }bar`]) {",
      "  [keyword return] [variable-2 x];",
      "}");
 
-  MT("new_target",
+    MT("new_target",
      "[keyword function] [def F]([def target]) {",
      "  [keyword if] ([variable-2 target] [operator &&] [keyword new].[keyword target].[property name]) {",
      "    [keyword return] [keyword new]",
@@ -190,24 +190,24 @@
      "  }",
      "}");
 
-  var ts_mode = CodeMirror.getMode({indentUnit: 2}, "application/typescript")
-  function TS(name) {
-    test.mode(name, ts_mode, Array.prototype.slice.call(arguments, 1))
-  }
+    var ts_mode = CodeMirror.getMode({indentUnit: 2}, "application/typescript")
+    function TS(name) {
+        test.mode(name, ts_mode, Array.prototype.slice.call(arguments, 1))
+    }
 
-  TS("extend_type",
+    TS("extend_type",
      "[keyword class] [def Foo] [keyword extends] [variable-3 Some][operator <][variable-3 Type][operator >] {}")
 
-  TS("arrow_type",
+    TS("arrow_type",
      "[keyword let] [def x]: ([variable arg]: [variable-3 Type]) [operator =>] [variable-3 ReturnType]")
 
-  TS("typescript_class",
+    TS("typescript_class",
      "[keyword class] [def Foo] {",
      "  [keyword public] [keyword static] [property main]() {}",
      "  [keyword private] [property _foo]: [variable-3 string];",
      "}")
 
-  TS("typescript_literal_types",
+    TS("typescript_literal_types",
      "[keyword import] [keyword *] [keyword as] [def Sequelize] [keyword from] [string 'sequelize'];",
      "[keyword interface] [def MyAttributes] {",
      "  [property truthy]: [string 'true'] [operator |] [number 1] [operator |] [atom true];",
@@ -219,7 +219,7 @@
      "  [property falsy]: [string 'false'] [operator |] [number 0] [operator |] [atom false];",
      "}")
 
-  TS("typescript_extend_operators",
+    TS("typescript_extend_operators",
      "[keyword export] [keyword interface] [def UserModel] [keyword extends]",
      "  [variable-3 Sequelize].[variable-3 Model] [operator <] [variable-3 UserInstance], [variable-3 UserAttributes] [operator >] {",
      "    [property findById]: (",
@@ -231,15 +231,15 @@
      "    ) [operator =>] [variable-3 Promise] [operator <] [variable-3 AccountHolderNotificationPreferenceInstance] [operator >];",
      "  }")
 
-  var jsonld_mode = CodeMirror.getMode(
+    var jsonld_mode = CodeMirror.getMode(
     {indentUnit: 2},
     {name: "javascript", jsonld: true}
   );
-  function LD(name) {
-    test.mode(name, jsonld_mode, Array.prototype.slice.call(arguments, 1));
-  }
+    function LD(name) {
+        test.mode(name, jsonld_mode, Array.prototype.slice.call(arguments, 1));
+    }
 
-  LD("json_ld_keywords",
+    LD("json_ld_keywords",
     '{',
     '  [meta "@context"]: {',
     '    [meta "@base"]: [string "http://example.com"],',
@@ -261,7 +261,7 @@
     '  } ]]',
     '}');
 
-  LD("json_ld_fake",
+    LD("json_ld_fake",
     '{',
     '  [property "@fake"]: [string "@fake"],',
     '  [property "@contextual"]: [string "@identifier"],',

@@ -8,12 +8,12 @@ project.services.get("http").start();
 // Se crea tan solo un directorio estático. Se crea pasándole a la Clase Route en su objeto de configuración
 // el parámetro path conla configuración que se ve
 var pillarsDocsStatic = new Route({
-  id:'pillarsDocsStatic',
-  path:'/*:path',
-  directory:{
-    path:'./static',
-    listing:true
-  }
+    id:'pillarsDocsStatic',
+    path:'/*:path',
+    directory:{
+        path:'./static',
+        listing:true
+    }
 });
 
 
