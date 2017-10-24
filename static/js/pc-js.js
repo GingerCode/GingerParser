@@ -65,7 +65,7 @@ var checkAll =  new RegExp("(?:"+[
 //console.log(checkAll);
 
 var value = new RegExp("(?:"+operands.source+"(?: *"+operators.source+" *"+operands.source+")*)","g");
-var call = 	new RegExp("(?:"+rules.func.source+" +("+operands.source+"(?: *(?: y |,) *"+operands.source+")*))","g");
+var call = 	new RegExp("(?:"+rules.func.source+"(?: +("+operands.source+"(?: *(?: y |,) *"+operands.source+")+)?))","g");
 var expresion = new RegExp("("+value.source+"|"+call.source+")","g");
 
 var sentences = {
