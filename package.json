@@ -2,7 +2,6 @@
   "name": "Ginger-Code",
   "description": "Translate from pseudocode to code",
   "version": "0.1.0",
-  
   "dependencies": {
     "pillars": "*"
   },

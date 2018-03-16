@@ -65,7 +65,8 @@ var checkAll =  new RegExp("(?:"+[
 //console.log(checkAll);
 
 var value = new RegExp("(?:"+operands.source+"(?: *"+operators.source+" *"+operands.source+")*)","g");
-var call = 	new RegExp("(?:"+rules.func.source+"(?: +("+operands.source+"(?: *(?: y |,) *"+operands.source+")+)?))","g");
+// var call new RegExp("(?:"+rules.func.source+" +("+operands.source+"(?: *(?: y |,) *"+operands.source+")*))","g");
+var call = 	new RegExp("(?:"+rules.func.source+"(?: +("+operands.source+"(?: *(?: y |,) *"+operands.source+")*))?)","g");
 var expresion = new RegExp("("+value.source+"|"+call.source+")","g");
 
 var sentences = {
@@ -205,9 +206,12 @@ function compile(input){
 				});
 				blocklist.push("loop");
 			} else if(line.match(sentences.function)){
+
 				line = line.replacer(sentences.function,function(match,g,i){
+					console.log("function", g[1], g[2]);
 					return "function "+g[1]+"("+g[2]+"){";
 				});
+				console.log(line);
 				blocklist.push("function");
 			} else if(line.match(sentences.print)){
 				line = line.replacer(sentences.print,function(match,g,i){
@@ -304,8 +308,11 @@ function replacePS(sentence){
 
 	var iresult,r;
 	var result = "";
-	var isCall = call.exec(sentence);
+	var strcitCall = new RegExp("^"+ call.source +"$");
+	var isCall = strcitCall.exec(sentence);
 	if(isCall){
+		console.log("isCall!", sentence);
+		//console.log("--->", isCall[1].substring(1), replacePS(isCall[2]));
 		result = isCall[1].substring(1)+"("+replacePS(isCall[2])+")";
 	} else {
 		while (checkAll.global && (iresult = checkAll.exec(sentence))!== null) {
@@ -325,6 +332,9 @@ function replacePS(sentence){
 				}
 			} else if(iresult[10]){
 				result += ",";
+			} else if(iresult[4]){
+				console.log("ifff");
+				result += iresult[0].substring(1).replace(/\@|\#/,".");
 			} else if(iresult[2] || iresult[3] || iresult[4]){
 				result += iresult[0].substring(1).replace(/\@|\#/,".");
 			} else {
